@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <duanly-import src="head">
+    <duanly-template name="title">Duanly — the little static site generator</duanly-template>
+    <duanly-template name="description">Duanly is a tiny static site generator built on plain HTML: imports, slots, templates and smart links. No config, no framework.</duanly-template>
+  </duanly-import>
+</head>
+<body data-copy-label="Copy" data-copied-label="Copied!">
+  <duanly-import src="nav">
+    <duanly-template name="lang">en</duanly-template>
+    <duanly-template name="navLabel">Primary</duanly-template>
+    <duanly-template name="langLabel">Language</duanly-template>
+    <duanly-template name="navInstall">Install</duanly-template>
+    <duanly-template name="navTags">Tags</duanly-template>
+    <duanly-template name="navMarkdown">Markdown</duanly-template>
+    <duanly-template name="navCli">CLI</duanly-template>
+    <duanly-template name="navDeploy">Deploy</duanly-template>
+    <duanly-template name="curEn">page</duanly-template>
+    <duanly-template name="curDe"></duanly-template>
+    <duanly-template name="curEs"></duanly-template>
+  </duanly-import>
+
+  <main>
+    <section class="hero">
+      <h1>Duanly</h1>
+      <p>The little static site generator. Duanly sits directly on top of the HTML you already know: import partials, fill in slots, and let plain files do the work — no build config, no framework to learn.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#install">Get started</a>
+        <a class="button" href="https://github.com/ylnaud/duanly">View on GitHub</a>
+      </div>
+    </section>
+
+    <section id="install">
+      <h2>Installation &amp; quick start</h2>
+      <p>Duanly needs Node.js 18 or later. Install it into any project with npm:</p>
+      <pre><code>npm install duanly</code></pre>
+      <p>Add two scripts to your <code>package.json</code>:</p>
+      <pre><code>{
+  "scripts": {
+    "start": "duanly",
+    "dev": "duanly --watch"
+  }
+}</code></pre>
+      <p>Create an <code>_imports</code> folder next to your HTML files, put a reusable partial in it (say <code>_imports/header.html</code>), then pull it into any page:</p>
+      <pre><code>&lt;duanly-import src="header" /&gt;</code></pre>
+      <p>Run <code>npm start</code> and Duanly compiles everything into a <code>public</code> folder, ready to deploy. Run <code>npm run dev</code> instead to start a local dev server at <code>http://localhost:8080</code> that rebuilds on every change.</p>
+    </section>
+
+    <section id="tags">
+      <h2>Tags</h2>
+      <p>Duanly reads plain HTML and understands four extra tags. They're removed at build time — visitors only ever see real HTML.</p>
+
+      <h3><code>&lt;duanly-import&gt;</code></h3>
+      <p>Pulls in a partial from your <code>_imports</code> folder by name (no file extension needed).</p>
+      <pre><code>&lt;duanly-import src="header" /&gt;
+
+&lt;!-- or, passing content into a slot: --&gt;
+&lt;duanly-import src="header"&gt;
+  &lt;h1&gt;Welcome!&lt;/h1&gt;
+&lt;/duanly-import&gt;</code></pre>
+
+      <h3><code>&lt;duanly-slot&gt;</code></h3>
+      <p>Marks a spot inside a partial where the importing page can inject content. Slots can be named, and can define fallback content shown when nothing is passed in.</p>
+      <pre><code>&lt;!-- _imports/header.html --&gt;
+&lt;header&gt;
+  &lt;duanly-slot /&gt;
+  &lt;duanly-slot name="subtitle"&gt;Default subtitle&lt;/duanly-slot&gt;
+&lt;/header&gt;</code></pre>
+
+      <h3><code>&lt;duanly-template&gt;</code></h3>
+      <p>Used inside a <code>&lt;duanly-import&gt;</code> to fill a specific named slot.</p>
+      <pre><code>&lt;duanly-import src="header"&gt;
+  &lt;duanly-template name="subtitle"&gt;
+    A tiny static site generator
+  &lt;/duanly-template&gt;
+&lt;/duanly-import&gt;</code></pre>
+
+      <h3><code>&lt;duanly-link&gt;</code></h3>
+      <p>A smart <code>&lt;a&gt;</code> tag. Duanly automatically adds an active class (and <code>aria-current="page"</code>) when the link points at the current page, or a parent of it.</p>
+      <pre><code>&lt;duanly-link to="/about/"&gt;About&lt;/duanly-link&gt;
+
+&lt;!-- on /about/, this becomes: --&gt;
+&lt;a href="/about/" class="active" aria-current="page"&gt;About&lt;/a&gt;</code></pre>
+    </section>
+
+    <section id="markdown">
+      <h2>Markdown</h2>
+      <p>Markdown is opt-in. Store <code>.md</code> files in your imports folder and pull them in with <code>as="markdown"</code>:</p>
+      <pre><code>&lt;duanly-import src="about" as="markdown" /&gt;</code></pre>
+      <p>Markdown is rendered with <a href="https://github.com/markedjs/marked">marked</a>, and headings automatically get GitHub-style <code>id</code> attributes for deep-linking — a <code>## Getting started</code> heading becomes <code>&lt;h2 id="getting-started"&gt;</code>.</p>
+    </section>
+
+    <section id="cli">
+      <h2>CLI options &amp; environment variables</h2>
+      <p>Every option can be passed as a CLI flag or set as an environment variable (handy with a <code>.env</code> file).</p>
+      <div class="table-wrap">
+        <table>
+          <caption>All available configuration</caption>
+          <thead>
+            <tr><th>Flag</th><th>Env var</th><th>Default</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>--root=</code></td><td><code>DUANLY_ROOT</code></td><td><code>./</code></td><td>Folder Duanly treats as the site root.</td></tr>
+            <tr><td><code>--output=</code></td><td><code>DUANLY_OUTPUT</code></td><td><code>public</code></td><td>Where the compiled site is written.</td></tr>
+            <tr><td><code>--imports=</code></td><td><code>DUANLY_IMPORTS</code></td><td><code>_imports</code></td><td>Folder holding HTML partials.</td></tr>
+            <tr><td><code>--content=</code></td><td><code>DUANLY_CONTENT</code></td><td><code>_imports</code></td><td>Folder holding Markdown content.</td></tr>
+            <tr><td><code>--active-class=</code></td><td><code>DUANLY_ACTIVE_CLASS</code></td><td><code>active</code></td><td>Class added by <code>&lt;duanly-link&gt;</code> on the current page.</td></tr>
+            <tr><td><code>--exclude=</code></td><td><code>DUANLY_EXCLUDE</code></td><td>&mdash;</td><td>Comma-separated extra paths to ignore.</td></tr>
+            <tr><td><code>--port=</code></td><td><code>DUANLY_PORT</code></td><td><code>8080</code></td><td>Dev server port, used with <code>--watch</code>.</td></tr>
+            <tr><td><code>--watch</code></td><td>&mdash;</td><td>off</td><td>Rebuilds on file changes and serves the output locally.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="deploy">
+      <h2>Deploy</h2>
+      <p>Duanly's output is a plain <code>public</code> folder, so it deploys anywhere that serves static files.</p>
+
+      <h3>Vercel</h3>
+      <p>Add a <code>vercel.json</code> at your project root:</p>
+      <pre><code>{
+  "buildCommand": "duanly",
+  "outputDirectory": "public"
+}</code></pre>
+
+      <h3>Netlify</h3>
+      <p>Add a <code>netlify.toml</code> at your project root:</p>
+      <pre><code>[build]
+  command = "npm run start"
+  publish = "public"</code></pre>
+
+      <p>This documentation site is itself built with Duanly and deployed to Vercel — the source lives in <a href="https://github.com/ylnaud/duanly">the repository</a> under <code>docs-site/</code>.</p>
+    </section>
+  </main>
+
+  <duanly-import src="footer">
+    <duanly-template name="footerMade">Built with</duanly-template>
+    <duanly-template name="footerCredit">a rescue of</duanly-template>
+  </duanly-import>
+</body>
+</html>

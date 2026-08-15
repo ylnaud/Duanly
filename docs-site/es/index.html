@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <duanly-import src="head">
+    <duanly-template name="title">Duanly — el pequeño generador de sitios estáticos</duanly-template>
+    <duanly-template name="description">Duanly es un generador de sitios estáticos minúsculo construido sobre HTML puro: imports, slots, templates y enlaces inteligentes. Sin configuración, sin framework.</duanly-template>
+  </duanly-import>
+</head>
+<body data-copy-label="Copiar" data-copied-label="¡Copiado!">
+  <duanly-import src="nav">
+    <duanly-template name="lang">es</duanly-template>
+    <duanly-template name="navLabel">Navegación principal</duanly-template>
+    <duanly-template name="langLabel">Idioma</duanly-template>
+    <duanly-template name="navInstall">Instalación</duanly-template>
+    <duanly-template name="navTags">Etiquetas</duanly-template>
+    <duanly-template name="navMarkdown">Markdown</duanly-template>
+    <duanly-template name="navCli">CLI</duanly-template>
+    <duanly-template name="navDeploy">Deploy</duanly-template>
+    <duanly-template name="curEn"></duanly-template>
+    <duanly-template name="curDe"></duanly-template>
+    <duanly-template name="curEs">page</duanly-template>
+  </duanly-import>
+
+  <main>
+    <section class="hero">
+      <h1>Duanly</h1>
+      <p>El pequeño generador de sitios estáticos. Duanly se apoya directamente en el HTML que ya conoces: importa partials, rellena slots y deja que archivos simples hagan el trabajo — sin configuración de build, sin framework que aprender.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#install">Empezar</a>
+        <a class="button" href="https://github.com/ylnaud/duanly">Ver en GitHub</a>
+      </div>
+    </section>
+
+    <section id="install">
+      <h2>Instalación e inicio rápido</h2>
+      <p>Duanly necesita Node.js 18 o superior. Instálalo en cualquier proyecto con npm:</p>
+      <pre><code>npm install duanly</code></pre>
+      <p>Agrega dos scripts a tu <code>package.json</code>:</p>
+      <pre><code>{
+  "scripts": {
+    "start": "duanly",
+    "dev": "duanly --watch"
+  }
+}</code></pre>
+      <p>Crea una carpeta <code>_imports</code> junto a tus archivos HTML, coloca ahí un partial reutilizable (por ejemplo <code>_imports/header.html</code>) e impórtalo en cualquier página:</p>
+      <pre><code>&lt;duanly-import src="header" /&gt;</code></pre>
+      <p>Ejecuta <code>npm start</code> y Duanly compilará todo en una carpeta <code>public</code>, lista para desplegar. Ejecuta <code>npm run dev</code> en su lugar para levantar un servidor local en <code>http://localhost:8080</code> que recompila con cada cambio.</p>
+    </section>
+
+    <section id="tags">
+      <h2>Etiquetas</h2>
+      <p>Duanly lee HTML puro y entiende cuatro etiquetas adicionales. Se eliminan durante el build — los visitantes solo ven HTML real.</p>
+
+      <h3><code>&lt;duanly-import&gt;</code></h3>
+      <p>Trae un partial desde tu carpeta <code>_imports</code> por su nombre (sin necesidad de extensión de archivo).</p>
+      <pre><code>&lt;duanly-import src="header" /&gt;
+
+&lt;!-- o, pasando contenido a un slot: --&gt;
+&lt;duanly-import src="header"&gt;
+  &lt;h1&gt;¡Bienvenido!&lt;/h1&gt;
+&lt;/duanly-import&gt;</code></pre>
+
+      <h3><code>&lt;duanly-slot&gt;</code></h3>
+      <p>Marca un lugar dentro de un partial donde la página que lo importa puede inyectar contenido. Los slots pueden tener nombre y definir contenido por defecto que se muestra cuando no se pasa nada.</p>
+      <pre><code>&lt;!-- _imports/header.html --&gt;
+&lt;header&gt;
+  &lt;duanly-slot /&gt;
+  &lt;duanly-slot name="subtitle"&gt;Subtítulo por defecto&lt;/duanly-slot&gt;
+&lt;/header&gt;</code></pre>
+
+      <h3><code>&lt;duanly-template&gt;</code></h3>
+      <p>Se usa dentro de un <code>&lt;duanly-import&gt;</code> para rellenar un slot con nombre específico.</p>
+      <pre><code>&lt;duanly-import src="header"&gt;
+  &lt;duanly-template name="subtitle"&gt;
+    Un pequeño generador de sitios estáticos
+  &lt;/duanly-template&gt;
+&lt;/duanly-import&gt;</code></pre>
+
+      <h3><code>&lt;duanly-link&gt;</code></h3>
+      <p>Una etiqueta <code>&lt;a&gt;</code> inteligente. Duanly agrega automáticamente una clase activa (y <code>aria-current="page"</code>) cuando el enlace apunta a la página actual, o a una página padre de esta.</p>
+      <pre><code>&lt;duanly-link to="/about/"&gt;Acerca de&lt;/duanly-link&gt;
+
+&lt;!-- en /about/, esto se convierte en: --&gt;
+&lt;a href="/about/" class="active" aria-current="page"&gt;Acerca de&lt;/a&gt;</code></pre>
+    </section>
+
+    <section id="markdown">
+      <h2>Markdown</h2>
+      <p>Markdown es opcional. Guarda archivos <code>.md</code> en tu carpeta de imports e impórtalos con <code>as="markdown"</code>:</p>
+      <pre><code>&lt;duanly-import src="about" as="markdown" /&gt;</code></pre>
+      <p>El Markdown se renderiza con <a href="https://github.com/markedjs/marked">marked</a>, y los encabezados obtienen automáticamente atributos <code>id</code> al estilo GitHub para enlaces directos — un encabezado <code>## Primeros pasos</code> se convierte en <code>&lt;h2 id="primeros-pasos"&gt;</code>.</p>
+    </section>
+
+    <section id="cli">
+      <h2>Opciones de CLI y variables de entorno</h2>
+      <p>Cada opción se puede pasar como flag de línea de comandos o definir como variable de entorno (útil con un archivo <code>.env</code>).</p>
+      <div class="table-wrap">
+        <table>
+          <caption>Todas las opciones disponibles</caption>
+          <thead>
+            <tr><th>Flag</th><th>Variable de entorno</th><th>Por defecto</th><th>Descripción</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>--root=</code></td><td><code>DUANLY_ROOT</code></td><td><code>./</code></td><td>Carpeta que Duanly trata como raíz del sitio.</td></tr>
+            <tr><td><code>--output=</code></td><td><code>DUANLY_OUTPUT</code></td><td><code>public</code></td><td>Dónde se escribe el sitio compilado.</td></tr>
+            <tr><td><code>--imports=</code></td><td><code>DUANLY_IMPORTS</code></td><td><code>_imports</code></td><td>Carpeta con los partials HTML.</td></tr>
+            <tr><td><code>--content=</code></td><td><code>DUANLY_CONTENT</code></td><td><code>_imports</code></td><td>Carpeta con el contenido Markdown.</td></tr>
+            <tr><td><code>--active-class=</code></td><td><code>DUANLY_ACTIVE_CLASS</code></td><td><code>active</code></td><td>Clase que agrega <code>&lt;duanly-link&gt;</code> en la página actual.</td></tr>
+            <tr><td><code>--exclude=</code></td><td><code>DUANLY_EXCLUDE</code></td><td>&mdash;</td><td>Rutas adicionales a ignorar, separadas por comas.</td></tr>
+            <tr><td><code>--port=</code></td><td><code>DUANLY_PORT</code></td><td><code>8080</code></td><td>Puerto del servidor de desarrollo, usado con <code>--watch</code>.</td></tr>
+            <tr><td><code>--watch</code></td><td>&mdash;</td><td>desactivado</td><td>Recompila con cada cambio de archivo y sirve el resultado localmente.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="deploy">
+      <h2>Deploy</h2>
+      <p>La salida de Duanly es una simple carpeta <code>public</code>, así que se puede desplegar en cualquier lugar que sirva archivos estáticos.</p>
+
+      <h3>Vercel</h3>
+      <p>Agrega un <code>vercel.json</code> en la raíz de tu proyecto:</p>
+      <pre><code>{
+  "buildCommand": "duanly",
+  "outputDirectory": "public"
+}</code></pre>
+
+      <h3>Netlify</h3>
+      <p>Agrega un <code>netlify.toml</code> en la raíz de tu proyecto:</p>
+      <pre><code>[build]
+  command = "npm run start"
+  publish = "public"</code></pre>
+
+      <p>Este sitio de documentación está construido con Duanly y desplegado en Vercel — el código fuente está en <a href="https://github.com/ylnaud/duanly">el repositorio</a> dentro de <code>docs-site/</code>.</p>
+    </section>
+  </main>
+
+  <duanly-import src="footer">
+    <duanly-template name="footerMade">Hecho con</duanly-template>
+    <duanly-template name="footerCredit">un rescate de</duanly-template>
+  </duanly-import>
+</body>
+</html>

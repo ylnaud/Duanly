@@ -1,0 +1,27 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/<duanly-slot name="lang" />/">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span>Duanly</span>
+    </a>
+    <nav class="primary-nav" aria-label="<duanly-slot name="navLabel" />">
+      <a href="#install"><duanly-slot name="navInstall" /></a>
+      <a href="#tags"><duanly-slot name="navTags" /></a>
+      <a href="#markdown"><duanly-slot name="navMarkdown" /></a>
+      <a href="#cli"><duanly-slot name="navCli" /></a>
+      <a href="#deploy"><duanly-slot name="navDeploy" /></a>
+    </nav>
+    <nav class="lang-switch" aria-label="<duanly-slot name="langLabel" />">
+      <a href="/en/" hreflang="en" aria-current="<duanly-slot name="curEn" />">EN</a>
+      <a href="/de/" hreflang="de" aria-current="<duanly-slot name="curDe" />">DE</a>
+      <a href="/es/" hreflang="es" aria-current="<duanly-slot name="curEs" />">ES</a>
+    </nav>
+  </div>
+</header>
+<nav class="tabbar" aria-label="<duanly-slot name="navLabel" />">
+  <a href="#install"><duanly-slot name="navInstall" /></a>
+  <a href="#tags"><duanly-slot name="navTags" /></a>
+  <a href="#markdown"><duanly-slot name="navMarkdown" /></a>
+  <a href="#cli"><duanly-slot name="navCli" /></a>
+  <a href="#deploy"><duanly-slot name="navDeploy" /></a>
+</nav>

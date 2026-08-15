@@ -12,7 +12,9 @@
   "scripts": {
     "start": "node index.js --root=./example/",
     "dev": "node index.js --watch --root=./example/",
-    "test": "jest --root=./example/"
+    "test": "jest --root=./example/",
+    "build:docs": "node index.js --root=./docs-site/",
+    "dev:docs": "node index.js --watch --root=./docs-site/"
   },
   "repository": {
     "type": "git",

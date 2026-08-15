@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <duanly-import src="head">
+    <duanly-template name="title">Duanly</duanly-template>
+    <duanly-template name="description">Duanly, the little static site generator — documentation in English, German and Spanish.</duanly-template>
+  </duanly-import>
+  <script>
+    (function () {
+      var supported = ['en', 'de', 'es'];
+      var lang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+      var target = supported.indexOf(lang) !== -1 ? lang : 'en';
+      location.replace('/' + target + '/');
+    })();
+  </script>
+  <meta http-equiv="refresh" content="2;url=/en/" />
+</head>
+<body>
+  <main style="max-width: 28rem; margin: 4rem auto; padding: 0 1.25rem; text-align: center;">
+    <h1>Duanly</h1>
+    <p>Choose your language / Wähle deine Sprache / Elige tu idioma</p>
+    <p>
+      <a href="/en/">English</a> &middot;
+      <a href="/de/">Deutsch</a> &middot;
+      <a href="/es/">Español</a>
+    </p>
+  </main>
+</body>
+</html>

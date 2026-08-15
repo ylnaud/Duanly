@@ -1,0 +1,7 @@
+{
+  "buildCommand": "npm run build:docs",
+  "installCommand": "npm install",
+  "outputDirectory": "docs-site/public",
+  "cleanUrls": true,
+  "trailingSlash": true
+}
