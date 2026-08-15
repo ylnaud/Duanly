@@ -9,6 +9,12 @@
   "engines": {
     "node": ">=18"
   },
+  "files": [
+    "index.js",
+    "src",
+    "readme.md",
+    "LICENSE"
+  ],
   "scripts": {
     "start": "node index.js --root=./example/",
     "dev": "node index.js --watch --root=./example/",
@@ -20,7 +26,7 @@
     "type": "git",
     "url": "git+https://github.com/ylnaud/duanly.git"
   },
-  "keywords": [],
+  "keywords": ["static-site-generator", "ssg", "html", "static-site", "cli"],
   "author": "dvegaalderete",
   "license": "MIT",
   "bugs": {
