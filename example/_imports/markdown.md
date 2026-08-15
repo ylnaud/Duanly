@@ -4,8 +4,8 @@ Write away to your hearts content, and save it in your `_imports` folder as some
 
 #### Import the markdown into your HTML page
 
-Sergey re-uses the `<sergey-import>` tag with an `as="markdown"` attribute to denote the markdown format:
+Duanly re-uses the `<duanly-import>` tag with an `as="markdown"` attribute to denote the markdown format:
 
 ```html
-<sergey-import src="about" as="markdown" />
+<duanly-import src="about" as="markdown" />
 ```

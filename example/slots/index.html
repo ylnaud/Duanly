@@ -2,34 +2,44 @@
 <html>
 
 <head>
-  <sergey-import src="head">
-    <sergey-template name="title">Slots | Sergey | the little static site generator</sergey-template>
-  </sergey-import>
+  <duanly-import src="head">
+    <duanly-template name="title">Slots | Duanly | the little static site generator</duanly-template>
+  </duanly-import>
 </head>
 
 <body>
-  <sergey-import src="header">
+  <duanly-import src="header">
     <p>Slots are a very useful way to re-use components. Let's explore them a little further...</p>
-  </sergey-import>
+  </duanly-import>
 
   <main class="insulate">
     <div class="wrapper content">
       <h2>Getting started with slots</h2>
-      <p>Any <code>_imports</code> file can have a special tag inside called a <code>&lt;sergey-slot /&gt;</code>. This slot provides a neat way to inject content within the component.</p>
+      <p>Any <code>_imports</code> file can have a special tag inside called a <code>&lt;duanly-slot /&gt;</code>. This slot provides a neat way to inject content within the component.</p>
 
       <p counter>Let's take a <code>&lt;head&gt;</code> of the page example. Here's our markup:</p>
 
-      <script src="https://gist.github.com/trys/5397178bb27024beefa8a6e2646b4f99.js"></script>
+<pre>
+<code>&lt;!-- _imports/head.html --&gt;
+&lt;title&gt;My website&lt;/title&gt;</code>
+</pre>
 
-      <p>Our SEO senses tell us that a page title per page would be a good thing. But now we're using Sergey, all of the <code>&lt;title&gt;</code> tags are stored away in the one file.</p>
+      <p>Our SEO senses tell us that a page title per page would be a good thing. But now we're using Duanly, all of the <code>&lt;title&gt;</code> tags are stored away in the one file.</p>
 
-      <p counter>To kick off, we can swap in a <code>&lt;sergey-slot /&gt;</code> tag:</p>
+      <p counter>To kick off, we can swap in a <code>&lt;duanly-slot /&gt;</code> tag:</p>
 
-      <script src="https://gist.github.com/trys/d7601ceb6fe2b7edba855089065570ad.js"></script>
+<pre>
+<code>&lt;!-- _imports/head.html --&gt;
+&lt;title&gt;&lt;duanly-slot /&gt;&lt;/title&gt;</code>
+</pre>
 
-      <p counter>To fill that slot with content, we alter our original <code>&lt;sergey-import /&gt;</code> tag in a very HTML-y way:</p>
+      <p counter>To fill that slot with content, we alter our original <code>&lt;duanly-import /&gt;</code> tag in a very HTML-y way:</p>
 
-      <script src="https://gist.github.com/trys/2c7489ed60cb4059041d18c20e8f1651.js"></script>
+<pre>
+<code>&lt;duanly-import src="head"&gt;
+  My page title
+&lt;/duanly-import&gt;</code>
+</pre>
 
       <p counter>That's it! If you pass in a title (or any other tags), it'll render it in place of the slot.</p>
 
@@ -37,34 +47,48 @@
 
       <h2 id="default-slots">Default slots</h2>
 
-      <p>If you want some default content to render when nothing's passed into the slot, expand the <code>&lt;sergey-slot /&gt;</code> tag to include that content:</p>
+      <p>If you want some default content to render when nothing's passed into the slot, expand the <code>&lt;duanly-slot /&gt;</code> tag to include that content:</p>
 
-      <script src="https://gist.github.com/trys/4fcabdac892eebc1615e8a851824e0a8.js"></script>
+<pre>
+<code>&lt;!-- _imports/head.html --&gt;
+&lt;title&gt;&lt;duanly-slot&gt;My website&lt;/duanly-slot&gt;&lt;/title&gt;</code>
+</pre>
 
       <hr />
 
       <h2 id="named-slots">Named slots</h2>
 
       <p>The humble slot is great, but sometimes it's handy to pass multiple bits of data into a component. This is where named slots come in.</p>
-      
+
       <p>Note, named slots are a more advanced feature, so don't feel you have to rush to use them, only break them out when you need to. They are comprised of two parts:</p>
 
       <ul>
-        <li><code>&lt;sergey-template name="slotName" /&gt;</code></li>
-        <li><code>&lt;sergey-slot name="slotName" /&gt;</code></li>
+        <li><code>&lt;duanly-template name="slotName" /&gt;</code></li>
+        <li><code>&lt;duanly-slot name="slotName" /&gt;</code></li>
       </ul>
 
-      <p>You can kinda think of these as variables. The template is the 'variable definition' and is used within a <code>sergey-import</code> tag. It's where you define the content that'll get injected into the slot.</p>
+      <p>You can kinda think of these as variables. The template is the 'variable definition' and is used within a <code>duanly-import</code> tag. It's where you define the content that'll get injected into the slot.</p>
 
-      <p>The slot with the name attribute tells Sergey where you'd like to put the content. Top tip, you can have multiple slots per template! This is really handy for meta titles and descriptions.</p>
+      <p>The slot with the name attribute tells Duanly where you'd like to put the content. Top tip, you can have multiple slots per template! This is really handy for meta titles and descriptions.</p>
 
       <p>Here's a blog preview example. We've defined two slots for the page title and author:</p>
 
-      <script src="https://gist.github.com/trys/c218422bed5fe1ccaa871d97f332f606.js"></script>
+<pre>
+<code>&lt;!-- _imports/preview.html --&gt;
+&lt;article&gt;
+  &lt;h2&gt;&lt;duanly-slot name="title" /&gt;&lt;/h2&gt;
+  &lt;p&gt;By &lt;duanly-slot name="author" /&gt;&lt;/p&gt;
+&lt;/article&gt;</code>
+</pre>
 
-      <p>To fill them in, we pass in two templates wherever we import the <code>head.html</code> file:</p>
-      
-      <script src="https://gist.github.com/trys/64f337449e1cb14077981ac67c831da5.js"></script>
+      <p>To fill them in, we pass in two templates wherever we import the <code>preview.html</code> file:</p>
+
+<pre>
+<code>&lt;duanly-import src="preview"&gt;
+  &lt;duanly-template name="title"&gt;My blog post&lt;/duanly-template&gt;
+  &lt;duanly-template name="author"&gt;Duanly&lt;/duanly-template&gt;
+&lt;/duanly-import&gt;</code>
+</pre>
 
       <hr />
 
@@ -74,13 +98,43 @@
 
       <p counter>Let's create <code>_imports/template.html</code> file:</p>
 
-      <script src="https://gist.github.com/trys/ca0aec8f2200ee1c334fa05304631b9a.js"></script>
+<pre>
+<code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;duanly-import src="head"&gt;
+    &lt;duanly-template name="title"&gt;
+      &lt;duanly-slot name="title" /&gt;
+    &lt;/duanly-template&gt;
+  &lt;/duanly-import&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;duanly-import src="header" /&gt;
+
+  &lt;main class="wrapper"&gt;
+    &lt;duanly-slot name="content" /&gt;
+  &lt;/main&gt;
+
+  &lt;duanly-import src="footer" /&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code>
+</pre>
 
       <p>Note that _imports can include other imports! This template pulls in a head (with a slot), header and a footer. It also leaves space for a slot.</p>
 
-      <p counter>In our <code>index.html</code> file, instead of calling in all those imports individually, we can simply wrap our page-specific content in one <code>&lt;sergey-import /&gt;</code> and it'll get squirted into the template. Look how tiny our page has become!</p>
+      <p counter>In our <code>index.html</code> file, instead of calling in all those imports individually, we can simply wrap our page-specific content in one <code>&lt;duanly-import /&gt;</code> and it'll get squirted into the template. Look how tiny our page has become!</p>
 
-      <script src="https://gist.github.com/trys/6fa6ce3ad6bc04b62dfdf731b9865de4.js"></script>
+<pre>
+<code>&lt;duanly-import src="template"&gt;
+  &lt;duanly-template name="title"&gt;My page&lt;/duanly-template&gt;
+  &lt;duanly-template name="content"&gt;
+    &lt;h1&gt;Welcome!&lt;/h1&gt;
+  &lt;/duanly-template&gt;
+&lt;/duanly-import&gt;</code>
+</pre>
 
       <p counter>To create a new page, all you need to do is copy/paste those three lines into a new file, and start writing!</p>
 
@@ -89,6 +143,6 @@
     </div>
   </main>
 
-  <sergey-import src="footer" />
+  <duanly-import src="footer" />
 </body>
 </html>

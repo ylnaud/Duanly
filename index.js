@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-const { sergeyRuntime } = require('./src');
-sergeyRuntime();
+const { duanlyRuntime } = require('./src');
+duanlyRuntime();

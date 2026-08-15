@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const { performance } = require('perf_hooks');
-const marked = require('marked');
+const { marked } = require('marked');
+const { gfmHeadingId } = require('marked-gfm-heading-id');
 require('dotenv').config();
+
+marked.use(gfmHeadingId());
 
 /**
  * Environment varibales
@@ -15,22 +18,22 @@ const getEnv = (argKey, envKey) => {
 };
 const isWatching = process.argv.includes('--watch');
 
-const ROOT = getEnv('--root=', 'SERGEY_ROOT') || './';
-const PORT = Number(getEnv('--port=', 'SERGEY_PORT')) || 8080;
+const ROOT = getEnv('--root=', 'DUANLY_ROOT') || './';
+const PORT = Number(getEnv('--port=', 'DUANLY_PORT')) || 8080;
 
-const IMPORTS_LOCAL = getEnv('--imports=', 'SERGEY_IMPORTS') || '_imports';
+const IMPORTS_LOCAL = getEnv('--imports=', 'DUANLY_IMPORTS') || '_imports';
 const IMPORTS = `${ROOT}${IMPORTS_LOCAL}/`;
 
-const CONTENT_LOCAL = getEnv('--content=', 'SERGEY_CONTENT') || '_imports';
+const CONTENT_LOCAL = getEnv('--content=', 'DUANLY_CONTENT') || '_imports';
 const CONTENT = `${ROOT}${CONTENT_LOCAL}/`;
 
-const OUTPUT_LOCAL = getEnv('--output=', 'SERGEY_OUTPUT') || 'public';
+const OUTPUT_LOCAL = getEnv('--output=', 'DUANLY_OUTPUT') || 'public';
 const OUTPUT = `${ROOT}${OUTPUT_LOCAL}/`;
 
 const ACTIVE_CLASS =
-  getEnv('--active-class=', 'SERGEY_ACTIVE_CLASS') || 'active';
+  getEnv('--active-class=', 'DUANLY_ACTIVE_CLASS') || 'active';
 
-const EXCLUDE = (getEnv('--exclude=', 'SERGEY_EXCLUDE') || '')
+const EXCLUDE = (getEnv('--exclude=', 'DUANLY_EXCLUDE') || '')
   .split(',')
   .map(x => x.trim())
   .filter(Boolean);
@@ -52,14 +55,14 @@ const excludedFolders = [
 
 const patterns = {
   whitespace: /^\s+|\s+$/g,
-  templates: /<sergey-template name="([a-zA-Z0-9-_.\\\/]*)">(.*?)<\/sergey-template>/gms,
-  complexNamedSlots: /<sergey-slot name="([a-zA-Z0-9-_.\\\/]*)">(.*?)<\/sergey-slot>/gms,
-  simpleNamedSlots: /<sergey-slot name="([a-zA-Z0-9-_.\\\/]*)"\s?\/>/gm,
-  complexDefaultSlots: /<sergey-slot>(.*?)<\/sergey-slot>/gms,
-  simpleDefaultSlots: /<sergey-slot\s?\/>/gm,
-  complexImports: /<sergey-import src="([a-zA-Z0-9-_.\\\/]*)"(?:\sas="(.*?)")?>(.*?)<\/sergey-import>/gms,
-  simpleImports: /<sergey-import src="([a-zA-Z0-9-_.\\\/]*)"(?:\sas="(.*?)")?\s?\/>/gm,
-  links: /<sergey-link\s?(.*?)(?:to|href)="([a-zA-Z0-9-_.#?\\\/]*)"\s?(.*?)>(.*?)<\/sergey-link>/gms
+  templates: /<duanly-template name="([a-zA-Z0-9-_.\\\/]*)">(.*?)<\/duanly-template>/gms,
+  complexNamedSlots: /<duanly-slot name="([a-zA-Z0-9-_.\\\/]*)">(.*?)<\/duanly-slot>/gms,
+  simpleNamedSlots: /<duanly-slot name="([a-zA-Z0-9-_.\\\/]*)"\s?\/>/gm,
+  complexDefaultSlots: /<duanly-slot>(.*?)<\/duanly-slot>/gms,
+  simpleDefaultSlots: /<duanly-slot\s?\/>/gm,
+  complexImports: /<duanly-import src="([a-zA-Z0-9-_.\\\/]*)"(?:\sas="(.*?)")?>(.*?)<\/duanly-import>/gms,
+  simpleImports: /<duanly-import src="([a-zA-Z0-9-_.\\\/]*)"(?:\sas="(.*?)")?\s?\/>/gm,
+  links: /<duanly-link\s?(.*?)(?:to|href)="([a-zA-Z0-9-_.#?\\\/]*)"\s?(.*?)>(.*?)<\/duanly-link>/gms
 };
 
 /**
@@ -188,8 +191,8 @@ const getKey = (key, ext = '.html', folder = '') => {
   const file = key.endsWith(ext) ? key : `${key}${ext}`;
   return `${folder}${file}`;
 };
-const hasImports = x => x.includes('<sergey-import');
-const hasLinks = x => x.includes('<sergey-link');
+const hasImports = x => x.includes('<duanly-import');
+const hasLinks = x => x.includes('<duanly-link');
 const primeExcludedFiles = name => {
   if (!excludedFolders.includes(name)) {
     excludedFolders.push(name);
@@ -297,7 +300,7 @@ const compileImport = (body, pattern) => {
 
     if (htmlAs === 'markdown') {
       replace = formatContent(
-        marked(cachedImports[getKey(key, '.md', CONTENT)] || '')
+        marked.parse(cachedImports[getKey(key, '.md', CONTENT)] || '')
       );
     } else {
       replace = cachedImports[getKey(key, '.html', IMPORTS)] || '';
@@ -467,7 +470,7 @@ const excludeGitIgnoreContents = async () => {
   } catch (e) {}
 };
 
-const sergeyRuntime = async () => {
+const duanlyRuntime = async () => {
   if (!OUTPUT.startsWith('./')) {
     console.error('DANGER! Make sure you start the root with a ./');
     return;
@@ -504,13 +507,13 @@ const sergeyRuntime = async () => {
     connect()
       .use(serveStatic(OUTPUT))
       .listen(PORT, function() {
-        console.log(`Sergey running on http://localhost:${PORT}`);
+        console.log(`Duanly running on http://localhost:${PORT}`);
       });
   }
 };
 
 module.exports = {
-  sergeyRuntime,
+  duanlyRuntime,
   compileTemplate,
   compileLinks,
   primeImport,

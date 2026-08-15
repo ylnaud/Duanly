@@ -35,7 +35,7 @@ describe('Slot compilation', () => {
   test('Basic slot filling', () => {
     const content = 'Content';
 
-    const input = wrapper('<sergey-slot />');
+    const input = wrapper('<duanly-slot />');
     const desiredOutput = wrapper(content);
 
     const output = compileTemplate(input, { default: content });
@@ -43,10 +43,10 @@ describe('Slot compilation', () => {
     expect(output).toBe(desiredOutput);
   });
 
-  test('<sergey-slot/> tag', () => {
+  test('<duanly-slot/> tag', () => {
     const content = 'Content';
 
-    const input = wrapper('<sergey-slot/>');
+    const input = wrapper('<duanly-slot/>');
     const desiredOutput = wrapper(content);
 
     const output = compileTemplate(input, { default: content });
@@ -54,10 +54,10 @@ describe('Slot compilation', () => {
     expect(output).toBe(desiredOutput);
   });
 
-  test('<sergey-slot></sergey-slot> tag', () => {
+  test('<duanly-slot></duanly-slot> tag', () => {
     const content = 'Content';
 
-    const input = wrapper('<sergey-slot></sergey-slot>');
+    const input = wrapper('<duanly-slot></duanly-slot>');
     const desiredOutput = wrapper(content);
 
     const output = compileTemplate(input, { default: content });
@@ -68,7 +68,7 @@ describe('Slot compilation', () => {
   test('Basic slot with whitespace', () => {
     const content = 'Content\nNewline';
 
-    const input = wrapper('<sergey-slot />');
+    const input = wrapper('<duanly-slot />');
     const desiredOutput = wrapper(content);
 
     const output = compileTemplate(input, { default: content });
@@ -79,7 +79,7 @@ describe('Slot compilation', () => {
   test('Basic slot with HTML', () => {
     const content = '<p>Paragraph</p>';
 
-    const input = wrapper('<sergey-slot />');
+    const input = wrapper('<duanly-slot />');
     const desiredOutput = wrapper(content);
 
     const output = compileTemplate(input, { default: content });
@@ -90,7 +90,7 @@ describe('Slot compilation', () => {
   test('Default slot content', () => {
     const defaultContent = 'Default content';
 
-    const input = wrapper(`<sergey-slot>${defaultContent}</sergey-slot>`);
+    const input = wrapper(`<duanly-slot>${defaultContent}</duanly-slot>`);
     const desiredOutput = wrapper(defaultContent);
 
     const output = compileTemplate(input);
@@ -101,7 +101,7 @@ describe('Slot compilation', () => {
   test('Named slot', () => {
     const namedContent = 'Named content';
 
-    const input = wrapper(`<sergey-slot name="named" />`);
+    const input = wrapper(`<duanly-slot name="named" />`);
     const desiredOutput = wrapper(namedContent);
 
     const output = compileTemplate(input, { named: namedContent });
@@ -112,7 +112,7 @@ describe('Slot compilation', () => {
   test('Named slot with underscores', () => {
     const namedContent = 'Named content';
 
-    const input = wrapper(`<sergey-slot name="named_slot" />`);
+    const input = wrapper(`<duanly-slot name="named_slot" />`);
     const desiredOutput = wrapper(namedContent);
 
     const output = compileTemplate(input, { named_slot: namedContent });
@@ -123,7 +123,7 @@ describe('Slot compilation', () => {
   test('Named slot with spaceless tag', () => {
     const namedContent = 'Named content';
 
-    const input = wrapper(`<sergey-slot name="named"/>`);
+    const input = wrapper(`<duanly-slot name="named"/>`);
     const desiredOutput = wrapper(namedContent);
 
     const output = compileTemplate(input, { named: namedContent });
@@ -134,7 +134,7 @@ describe('Slot compilation', () => {
   test('Named slot with full tag', () => {
     const namedContent = 'Named content';
 
-    const input = wrapper(`<sergey-slot name="named"></sergey-slot>`);
+    const input = wrapper(`<duanly-slot name="named"></duanly-slot>`);
     const desiredOutput = wrapper(namedContent);
 
     const output = compileTemplate(input, { named: namedContent });
@@ -146,7 +146,7 @@ describe('Slot compilation', () => {
     const namedContent = 'Named content';
 
     const input = wrapper(
-      `<sergey-slot name="named">Default content</sergey-slot>`
+      `<duanly-slot name="named">Default content</duanly-slot>`
     );
     const desiredOutput = wrapper(namedContent);
 
@@ -159,7 +159,7 @@ describe('Slot compilation', () => {
     const defaultContent = 'Default content';
 
     const input = wrapper(
-      `<sergey-slot name="named">${defaultContent}</sergey-slot>`
+      `<duanly-slot name="named">${defaultContent}</duanly-slot>`
     );
     const desiredOutput = wrapper(defaultContent);
 
@@ -176,7 +176,7 @@ describe('Import compilation', () => {
     primeImport(testImport('header.html'), header());
 
     const desiredOutput = header();
-    const output = compileTemplate('<sergey-import src="header" />');
+    const output = compileTemplate('<duanly-import src="header" />');
 
     expect(output).toBe(desiredOutput);
   });
@@ -191,21 +191,21 @@ describe('Import compilation', () => {
       ${content}
     ${footer()}`;
 
-    const output = compileTemplate(`<sergey-import src="header" />
+    const output = compileTemplate(`<duanly-import src="header" />
       ${content}
-    <sergey-import src="footer"/>`);
+    <duanly-import src="footer"/>`);
 
     expect(output).toBe(desiredOutput);
   });
 
   test('A basic import with a slot', () => {
-    primeImport(testImport('header.html'), header('<sergey-slot />'));
+    primeImport(testImport('header.html'), header('<duanly-slot />'));
     const content = '<p>Content</p>';
 
     const desiredOutput = header(content);
-    const output = compileTemplate(`<sergey-import src="header">
+    const output = compileTemplate(`<duanly-import src="header">
       ${content}
-    </sergey-import>`);
+    </duanly-import>`);
 
     expect(output).toBe(desiredOutput);
   });
@@ -214,11 +214,11 @@ describe('Import compilation', () => {
     const content = '<p>Content</p>';
     primeImport(
       testImport('header.html'),
-      header(`<sergey-slot>${content}</sergey-slot>`)
+      header(`<duanly-slot>${content}</duanly-slot>`)
     );
 
     const desiredOutput = header(content);
-    const output = compileTemplate(`<sergey-import src="header" />`);
+    const output = compileTemplate(`<duanly-import src="header" />`);
 
     expect(output).toBe(desiredOutput);
   });
@@ -226,16 +226,16 @@ describe('Import compilation', () => {
   test('A basic import with a named slot', () => {
     primeImport(
       testImport('header.html'),
-      header(`<sergey-slot name="headerName" />`)
+      header(`<duanly-slot name="headerName" />`)
     );
     const content = '<h1>Header</h1>';
 
     const desiredOutput = header(content);
-    const output = compileTemplate(`<sergey-import src="header">
-      <sergey-template name="headerName">
+    const output = compileTemplate(`<duanly-import src="header">
+      <duanly-template name="headerName">
         ${content}
-      </sergey-template>
-    </sergey-import>`);
+      </duanly-template>
+    </duanly-import>`);
 
     expect(output).toBe(desiredOutput);
   });
@@ -243,19 +243,19 @@ describe('Import compilation', () => {
   test('Named and unnamed slots', () => {
     primeImport(
       testImport('header.html'),
-      header(`<sergey-slot name="headerName" />
-    <sergey-slot />`)
+      header(`<duanly-slot name="headerName" />
+    <duanly-slot />`)
     );
     const content = '<h1>Header</h1>';
 
     const desiredOutput = header(`${content}
     ${content}`);
-    const output = compileTemplate(`<sergey-import src="header">
-      <sergey-template name="headerName">
+    const output = compileTemplate(`<duanly-import src="header">
+      <duanly-template name="headerName">
         ${content}
-      </sergey-template>
+      </duanly-template>
       ${content}
-    </sergey-import>`);
+    </duanly-import>`);
 
     expect(output).toBe(desiredOutput);
   });
@@ -264,11 +264,11 @@ describe('Import compilation', () => {
     const defaultContent = '<h1>Header</h1>';
     primeImport(
       testImport('header.html'),
-      header(`<sergey-slot name="headerName">${defaultContent}</sergey-slot>`)
+      header(`<duanly-slot name="headerName">${defaultContent}</duanly-slot>`)
     );
 
     const desiredOutput = header(defaultContent);
-    const output = compileTemplate(`<sergey-import src="header" />`);
+    const output = compileTemplate(`<duanly-import src="header" />`);
 
     expect(output).toBe(desiredOutput);
   });
@@ -280,7 +280,7 @@ describe('Markdown compilation', () => {
 
     const desiredOutput = '<h1 id="about-us">About us</h1>';
     const output = compileTemplate(
-      '<sergey-import src="about" as="markdown" />'
+      '<duanly-import src="about" as="markdown" />'
     );
 
     expect(output).toBe(desiredOutput);
@@ -297,7 +297,7 @@ Content is **great**.`
 <p>Content is <strong>great</strong>.</p>`;
 
     const output = compileTemplate(
-      '<sergey-import src="about" as="markdown" />'
+      '<duanly-import src="about" as="markdown" />'
     );
 
     expect(output).toBe(desiredOutput);
@@ -306,7 +306,7 @@ Content is **great**.`
   test('Multiline markdown with code block', () => {
     primeImport(
       testImport('code.md'),
-      `<sergey-import src="snippet" as="markdown" />`
+      `<duanly-import src="snippet" as="markdown" />`
     );
 
     primeImport(
@@ -315,18 +315,19 @@ Content is **great**.`
 
 \`\`\`html
 <article>
-  <sergey-import src="code" as="markdown" />
+  <duanly-import src="code" as="markdown" />
 </article>
 \`\`\`
 `
     );
     const desiredOutput = `<h1 id="example-code-block">Example code block</h1>
 <pre><code class="language-html">&lt;article&gt;
-  &lt;sergey-import src=&quot;code&quot; as=&quot;markdown&quot; /&gt;
-&lt;/article&gt;</code></pre>`;
+  &lt;duanly-import src=&quot;code&quot; as=&quot;markdown&quot; /&gt;
+&lt;/article&gt;
+</code></pre>`;
 
     const output = compileTemplate(
-      '<sergey-import src="code" as="markdown" />'
+      '<duanly-import src="code" as="markdown" />'
     );
 
     expect(output).toBe(desiredOutput);
@@ -335,7 +336,7 @@ Content is **great**.`
 
 describe('Link compilation', () => {
   test('A link', () => {
-    const input = `<sergey-link to="/example/">Example Link</sergey-link>`;
+    const input = `<duanly-link to="/example/">Example Link</duanly-link>`;
     const desiredOutput = `<a href="/example/">Example Link</a>`;
     const output = compileLinks(input);
 
@@ -344,9 +345,9 @@ describe('Link compilation', () => {
 
   test('Multiple links', () => {
     const input = `
-      <sergey-link to="/example-1/">Example Link 1</sergey-link>
-      <sergey-link to="/example-2/">Example Link 2</sergey-link>
-      <sergey-link to="/example-3/">Example Link 3</sergey-link>
+      <duanly-link to="/example-1/">Example Link 1</duanly-link>
+      <duanly-link to="/example-2/">Example Link 2</duanly-link>
+      <duanly-link to="/example-3/">Example Link 3</duanly-link>
       `;
     const desiredOutput = `
       <a href="/example-1/">Example Link 1</a>
@@ -359,7 +360,7 @@ describe('Link compilation', () => {
   });
 
   test('A link to identical current path', () => {
-    const input = `<sergey-link to="/example/index.html">Example</sergey-link>`;
+    const input = `<duanly-link to="/example/index.html">Example</duanly-link>`;
     const path = '/example/index.html';
 
     const desiredOutput = `<a href="/example/index.html" class="${ACTIVE_CLASS}" aria-current="page">Example</a>`;
@@ -369,7 +370,7 @@ describe('Link compilation', () => {
   });
 
   test('A link to start of current path', () => {
-    const input = `<sergey-link to="/example/">Example</sergey-link>`;
+    const input = `<duanly-link to="/example/">Example</duanly-link>`;
     const path = '/example/index.html';
 
     const desiredOutput = `<a href="/example/" class="${ACTIVE_CLASS}" aria-current="page">Example</a>`;
@@ -379,7 +380,7 @@ describe('Link compilation', () => {
   });
 
   test('A link to a parent path', () => {
-    const input = `<sergey-link to="/example/">Example</sergey-link>`;
+    const input = `<duanly-link to="/example/">Example</duanly-link>`;
     const path = '/example/foo/index.html';
 
     const desiredOutput = `<a href="/example/" class="${ACTIVE_CLASS}">Example</a>`;
@@ -391,9 +392,9 @@ describe('Link compilation', () => {
   test('Multiple links, with 1 current', () => {
     const path = '/example-1/';
     const input = `
-      <sergey-link to="/example-1/">Example Link 1</sergey-link>
-      <sergey-link to="/example-2/">Example Link 2</sergey-link>
-      <sergey-link to="/example-3/">Example Link 3</sergey-link>
+      <duanly-link to="/example-1/">Example Link 1</duanly-link>
+      <duanly-link to="/example-2/">Example Link 2</duanly-link>
+      <duanly-link to="/example-3/">Example Link 3</duanly-link>
       `;
     const desiredOutput = `
       <a href="/example-1/" class="${ACTIVE_CLASS}" aria-current="page">Example Link 1</a>
@@ -408,9 +409,9 @@ describe('Link compilation', () => {
   test('Multiple links, with 1 parent', () => {
     const path = '/example-1/foo/index.html';
     const input = `
-      <sergey-link to="/example-1/">Example Link 1</sergey-link>
-      <sergey-link to="/example-2/">Example Link 2</sergey-link>
-      <sergey-link to="/example-3/">Example Link 3</sergey-link>
+      <duanly-link to="/example-1/">Example Link 1</duanly-link>
+      <duanly-link to="/example-2/">Example Link 2</duanly-link>
+      <duanly-link to="/example-3/">Example Link 3</duanly-link>
       `;
     const desiredOutput = `
       <a href="/example-1/" class="${ACTIVE_CLASS}">Example Link 1</a>
@@ -425,7 +426,7 @@ describe('Link compilation', () => {
   test('Home link, current', () => {
     const path = '/index.html';
     const input = `
-      <sergey-link to="/">Home</sergey-link>
+      <duanly-link to="/">Home</duanly-link>
       `;
     const desiredOutput = `
       <a href="/" class="${ACTIVE_CLASS}" aria-current="page">Home</a>
@@ -438,7 +439,7 @@ describe('Link compilation', () => {
   test('Home link, not current', () => {
     const path = '/about/index.html';
     const input = `
-      <sergey-link to="/">Home</sergey-link>
+      <duanly-link to="/">Home</duanly-link>
       `;
     const desiredOutput = `
       <a href="/" class="${ACTIVE_CLASS}">Home</a>
@@ -451,7 +452,7 @@ describe('Link compilation', () => {
   test('Link to partial, not current', () => {
     const path = '/about/index.html';
     const input = `
-      <sergey-link to="/#subscribe">Subscribe</sergey-link>
+      <duanly-link to="/#subscribe">Subscribe</duanly-link>
       `;
     const desiredOutput = `
       <a href="/#subscribe" class="${ACTIVE_CLASS}">Subscribe</a>
@@ -464,7 +465,7 @@ describe('Link compilation', () => {
   test('Link with front-loaded classes', () => {
     const path = '/index.html';
     const input = `
-      <sergey-link class="my-class" to="/">Home</sergey-link>
+      <duanly-link class="my-class" to="/">Home</duanly-link>
       `;
     const desiredOutput = `
       <a href="/" class="${ACTIVE_CLASS} my-class" aria-current="page">Home</a>
@@ -477,7 +478,7 @@ describe('Link compilation', () => {
   test('Link with back-loaded classes', () => {
     const path = '/index.html';
     const input = `
-      <sergey-link to="/" class="my-class">Home</sergey-link>
+      <duanly-link to="/" class="my-class">Home</duanly-link>
       `;
     const desiredOutput = `
       <a href="/" class="${ACTIVE_CLASS} my-class" aria-current="page">Home</a>
@@ -490,7 +491,7 @@ describe('Link compilation', () => {
   test('Link with other attributes', () => {
     const path = '/index.html';
     const input = `
-      <sergey-link to="/" id="an-id">Home</sergey-link>
+      <duanly-link to="/" id="an-id">Home</duanly-link>
       `;
     const desiredOutput = `
       <a href="/" id="an-id" class="${ACTIVE_CLASS}" aria-current="page">Home</a>
@@ -503,7 +504,7 @@ describe('Link compilation', () => {
   test('Link with ids and classes', () => {
     const path = '/index.html';
     const input = `
-      <sergey-link to="/" class="my-class" id="an-id">Home</sergey-link>
+      <duanly-link to="/" class="my-class" id="an-id">Home</duanly-link>
       `;
     const desiredOutput = `
       <a href="/" class="${ACTIVE_CLASS} my-class" id="an-id" aria-current="page">Home</a>
@@ -515,7 +516,7 @@ describe('Link compilation', () => {
 
   test('Link with href, rather than to', () => {
     const input = `
-      <sergey-link href="/example-1/">Example Link 1</sergey-link>
+      <duanly-link href="/example-1/">Example Link 1</duanly-link>
       `;
     const desiredOutput = `
       <a href="/example-1/">Example Link 1</a>

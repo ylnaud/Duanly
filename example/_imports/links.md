@@ -22,7 +22,7 @@ If this template is saved as `_imports/navigation.html`, you can reuse the navig
   </head>
   <body>
     <header>
-      <sergey-import src="navigation" />
+      <duanly-import src="navigation" />
     </header>
     <main>
       <h1>Welcome!</h1>
@@ -52,28 +52,28 @@ Whereas on the about page, it should render like this:
 </nav>
 ```
 
-That's where `<sergey-link>` comes in!
+That's where `<duanly-link>` comes in!
 
-#### Change navigation links to `<sergey-link>`
+#### Change navigation links to `<duanly-link>`
 
 In the sample above, we can change our navigation template (`_imports/navigation.html`) to the following:
 
 ```html
 <nav>
-  <sergey-link to="/">Home</sergey-link>
-  <sergey-link to="/about/">About</sergey-link>
-  <sergey-link to="/contact/">Contact</sergey-link>
+  <duanly-link to="/">Home</duanly-link>
+  <duanly-link to="/about/">About</duanly-link>
+  <duanly-link to="/contact/">Contact</duanly-link>
 </nav>
 ```
 
-Now when Sergey builds our site, it will add `class="active"` and `aria-current="page"` as appropriate on each page!
+Now when Duanly builds our site, it will add `class="active"` and `aria-current="page"` as appropriate on each page!
 
-#### Pass attributes through `<sergey-link>`
+#### Pass attributes through `<duanly-link>`
 
-Any HTML attributes we pass to a `<sergey-link>` will be passed through to the generated `<a>` tag. Sergey will also combine any classes you've set with the active class:
+Any HTML attributes we pass to a `<duanly-link>` will be passed through to the generated `<a>` tag. Duanly will also combine any classes you've set with the active class:
 
 ```html
-<sergey-link to="/" class="my-class" id="an-id">Home</sergey-link>
+<duanly-link to="/" class="my-class" id="an-id">Home</duanly-link>
 ```
 
 The above will be converted into:

@@ -1,10 +1,13 @@
 {
-  "name": "sergey",
-  "version": "0.0.13",
+  "name": "duanly",
+  "version": "0.1.0",
   "description": "The little static site generator",
   "main": "index.js",
   "bin": {
-    "sergey": "./index.js"
+    "duanly": "./index.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "scripts": {
     "start": "node index.js --root=./example/",
@@ -13,23 +16,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trys/sergey.git"
+    "url": "git+https://github.com/ylnaud/duanly.git"
   },
   "keywords": [],
-  "author": "Trys Mudford (https://www.trysmudford.com)",
-  "license": "ISC",
+  "author": "dvegaalderete",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/trys/sergey/issues"
+    "url": "https://github.com/ylnaud/duanly/issues"
   },
-  "homepage": "https://github.com/trys/sergey#readme",
+  "homepage": "https://github.com/ylnaud/duanly#readme",
   "dependencies": {
-    "chokidar": "^2.1.5",
-    "connect": "^3.6.6",
-    "dotenv": "^7.0.0",
-    "marked": "^0.6.2",
-    "serve-static": "^1.13.2"
+    "chokidar": "^3.6.0",
+    "connect": "^3.7.0",
+    "dotenv": "^16.4.5",
+    "marked": "^15.0.12",
+    "marked-gfm-heading-id": "^4.1.4",
+    "serve-static": "^1.15.0"
   },
   "devDependencies": {
-    "jest": "^24.7.1"
+    "jest": "^29.7.0"
   }
 }
