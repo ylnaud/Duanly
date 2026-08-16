@@ -11,7 +11,11 @@ If you've ever had to make a change to every header on a totally static website,
 - [Command line options](example/_imports/options.md)
 
 ```bash
-$ npm install duanly
+# Works now — installs directly from GitHub
+$ npm install github:ylnaud/Duanly
+
+# (coming soon — npm registry publish pending)
+# $ npm install duanly
 
 # Build the site
 $ duanly
